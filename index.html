@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benjamin T. Rossen | Pianist, Composer, Conductor</title>
+    <title>Benjamin T. Rossen</title>
     <link rel="icon" type="image/png" href="B_s_Logo-removebg-preview.png">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,14 +14,11 @@
         }
 
         :root {
-            --primary-blue: #1DA1F2;
-            --deep-blue: #0077B5;
-            --light-blue: #E8F4FD;
-            --warm-coral: #C96B6B;
-            --soft-peach: #F5E6E0;
-            --text-dark: #1A1A1A;
-            --text-light: #FFFFFF;
-            --accent-gold: #D4A574;
+            --cream: #efe8e2;
+            --charcoal: #151516;
+            --charcoal-light: #2a2a2b;
+            --cream-dark: #e5ddd6;
+            --accent: #151516;
         }
 
         html {
@@ -30,9 +27,11 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            color: var(--text-dark);
-            background: var(--text-light);
+            font-weight: 300;
+            color: var(--charcoal);
+            background: var(--cream);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         /* Navigation */
@@ -40,290 +39,224 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 3rem;
+            padding: 2rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
+            background: var(--cream);
             transition: all 0.3s ease;
         }
 
         nav.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem 5%;
+            box-shadow: 0 1px 0 rgba(21, 21, 22, 0.1);
         }
 
         .logo {
-            height: 50px;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
+            height: 40px;
+            opacity: 0.9;
         }
 
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 3rem;
             list-style: none;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
+            color: var(--charcoal);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-blue);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
+            transition: opacity 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: var(--primary-blue);
+            opacity: 0.5;
         }
 
         /* Mobile Menu */
         .menu-toggle {
             display: none;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
             cursor: pointer;
             z-index: 1001;
         }
 
         .menu-toggle span {
-            width: 25px;
-            height: 2px;
-            background: var(--text-dark);
+            width: 20px;
+            height: 1px;
+            background: var(--charcoal);
             transition: all 0.3s ease;
         }
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            position: relative;
-            background: linear-gradient(135deg, var(--light-blue) 0%, var(--text-light) 50%, var(--soft-peach) 100%);
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 70%;
-            height: 140%;
-            background: radial-gradient(circle, rgba(29, 161, 242, 0.1) 0%, transparent 70%);
-            animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-30px, 30px) rotate(5deg); }
-        }
-
-        .hero-content {
+            align-items: center;
+            padding: 8rem 5% 4rem;
             text-align: center;
-            z-index: 1;
-            padding: 2rem;
         }
 
         .hero-image {
-            width: 280px;
-            height: 280px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
             object-position: center top;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 60px rgba(29, 161, 242, 0.3);
-            border: 5px solid var(--text-light);
-            animation: fadeInUp 1s ease;
+            margin-bottom: 3rem;
+            filter: grayscale(20%);
         }
 
         .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease 0.2s both;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 0.95;
+            margin-bottom: 1.5rem;
         }
 
         .hero-subtitle {
-            font-size: 1.1rem;
-            color: var(--deep-blue);
+            font-size: 0.75rem;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            font-weight: 500;
-            animation: fadeInUp 1s ease 0.4s both;
+            opacity: 0.7;
         }
 
-        .scroll-indicator {
+        .scroll-line {
             position: absolute;
             bottom: 3rem;
             left: 50%;
             transform: translateX(-50%);
-            animation: bounce 2s infinite;
+            width: 1px;
+            height: 60px;
+            background: var(--charcoal);
+            opacity: 0.3;
         }
 
-        .scroll-indicator span {
-            display: block;
-            width: 30px;
-            height: 50px;
-            border: 2px solid var(--primary-blue);
-            border-radius: 15px;
-            position: relative;
-        }
-
-        .scroll-indicator span::before {
+        .scroll-line::after {
             content: '';
             position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 6px;
-            height: 6px;
-            background: var(--primary-blue);
-            border-radius: 50%;
-            animation: scroll 2s infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: var(--charcoal);
+            animation: scrollDown 2s ease-in-out infinite;
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
-        }
-
-        @keyframes scroll {
-            0% { opacity: 1; top: 8px; }
-            100% { opacity: 0; top: 30px; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes scrollDown {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(40px); opacity: 0; }
         }
 
         /* Sections */
         section {
             padding: 8rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
         }
 
         .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
             margin-bottom: 1rem;
         }
 
         .section-subtitle {
-            text-align: center;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto 4rem;
-            line-height: 1.8;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.6;
         }
 
         /* About Section */
-        .about {
-            background: var(--text-light);
-        }
-
         .about-content {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .about-text {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             line-height: 2;
-            color: #444;
+            color: var(--charcoal-light);
         }
 
         .about-text p {
             margin-bottom: 1.5rem;
         }
 
+        .about-text strong {
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .about-text em {
+            font-style: italic;
+        }
+
         /* Performances Section */
         .performances {
-            background: linear-gradient(180deg, var(--light-blue) 0%, var(--text-light) 100%);
+            background: var(--cream);
         }
 
         /* Filter Controls */
         .filter-controls {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
+            gap: 0.5rem;
+            margin-bottom: 4rem;
             flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 0.75rem 1.5rem;
-            border: 2px solid var(--primary-blue);
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--charcoal);
             background: transparent;
-            color: var(--primary-blue);
+            color: var(--charcoal);
             font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-size: 0.7rem;
+            font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             cursor: pointer;
             transition: all 0.3s ease;
-            border-radius: 30px;
         }
 
         .filter-btn:hover,
         .filter-btn.active {
-            background: var(--primary-blue);
-            color: var(--text-light);
+            background: var(--charcoal);
+            color: var(--cream);
         }
 
         /* Video Grid */
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
         }
 
         .video-card {
-            background: var(--text-light);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            background: var(--cream);
             transition: all 0.3s ease;
         }
 
         .video-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(29, 161, 242, 0.2);
         }
 
         .video-card.hidden {
@@ -334,6 +267,7 @@
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
+            background: var(--charcoal);
         }
 
         .video-wrapper iframe {
@@ -345,114 +279,120 @@
         }
 
         .video-info {
-            padding: 1.5rem;
+            padding: 1.5rem 0;
         }
 
         .video-info h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
             margin-bottom: 0.5rem;
         }
 
         .video-info p {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-bottom: 0.75rem;
         }
 
         .video-category {
             display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: var(--light-blue);
-            color: var(--deep-blue);
-            font-size: 0.75rem;
-            font-weight: 500;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-radius: 15px;
+            opacity: 0.5;
         }
 
         /* YouTube Channel Link */
         .channel-link-container {
             text-align: center;
-            margin-top: 3rem;
+            margin-top: 4rem;
         }
 
         .channel-link {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--text-dark);
+            gap: 0.75rem;
+            color: var(--charcoal);
             text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
             padding: 1rem 2rem;
-            border: 2px solid var(--primary-blue);
-            border-radius: 50px;
+            border: 1px solid var(--charcoal);
             transition: all 0.3s ease;
-            font-weight: 500;
         }
 
         .channel-link:hover {
-            background: var(--primary-blue);
-            color: var(--text-light);
-            transform: translateY(-3px);
+            background: var(--charcoal);
+            color: var(--cream);
         }
 
         .channel-link svg {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
         }
 
         /* Contact Section */
         .contact {
-            background: var(--text-dark);
-            color: var(--text-light);
+            background: var(--charcoal);
+            color: var(--cream);
             text-align: center;
+            padding: 8rem 5%;
+            max-width: none;
         }
 
         .contact .section-title {
-            color: var(--text-light);
+            color: var(--cream);
+        }
+
+        .contact .section-subtitle {
+            color: var(--cream);
+            opacity: 0.5;
         }
 
         .contact-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1rem;
             flex-wrap: wrap;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .contact-link {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--text-light);
+            color: var(--cream);
             text-decoration: none;
-            padding: 1rem 2rem;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            border: 1px solid rgba(239, 232, 226, 0.3);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             transition: all 0.3s ease;
-            font-weight: 500;
         }
 
         .contact-link:hover {
-            background: var(--primary-blue);
-            border-color: var(--primary-blue);
-            transform: translateY(-3px);
+            background: var(--cream);
+            color: var(--charcoal);
+            border-color: var(--cream);
         }
 
         .contact-link svg {
-            width: 20px;
-            height: 20px;
+            width: 14px;
+            height: 14px;
         }
 
         /* Footer */
         footer {
-            background: var(--text-dark);
-            color: rgba(255, 255, 255, 0.6);
+            background: var(--charcoal);
+            color: var(--cream);
             text-align: center;
             padding: 2rem;
-            font-size: 0.85rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            opacity: 0.5;
         }
 
         /* Floating Mute Button */
@@ -460,16 +400,15 @@
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            background: rgba(0, 0, 0, 0.8);
-            color: var(--text-light);
-            width: 50px;
-            height: 50px;
+            background: var(--charcoal);
+            color: var(--cream);
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             z-index: 1000;
             border: none;
@@ -477,18 +416,18 @@
 
         #mute-btn:hover {
             transform: scale(1.1);
-            background: var(--primary-blue);
+            opacity: 0.8;
         }
 
         #mute-btn svg {
-            width: 24px;
-            height: 24px;
+            width: 18px;
+            height: 18px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             nav {
-                padding: 1rem 1.5rem;
+                padding: 1.5rem 5%;
             }
 
             .nav-links {
@@ -498,7 +437,7 @@
                 left: 0;
                 width: 100%;
                 height: 100vh;
-                background: var(--text-light);
+                background: var(--cream);
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
@@ -513,26 +452,17 @@
                 display: flex;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 0.9rem;
-                letter-spacing: 0.15em;
+            .hero {
+                padding: 6rem 5% 4rem;
             }
 
             .hero-image {
-                width: 200px;
-                height: 200px;
+                width: 150px;
+                height: 150px;
             }
 
             section {
                 padding: 4rem 5%;
-            }
-
-            .section-title {
-                font-size: 2rem;
             }
 
             .video-grid {
@@ -540,25 +470,37 @@
             }
 
             .filter-controls {
-                gap: 0.5rem;
+                gap: 0.3rem;
             }
 
             .filter-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.75rem;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.6rem;
             }
 
             #mute-btn {
-                width: 40px;
-                height: 40px;
+                width: 36px;
+                height: 36px;
                 bottom: 1rem;
                 right: 1rem;
             }
 
             #mute-btn svg {
-                width: 18px;
-                height: 18px;
+                width: 14px;
+                height: 14px;
             }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -566,7 +508,7 @@
     <!-- Navigation -->
     <nav id="navbar">
         <a href="#hero">
-            <img src="B_s_Logo-removebg-preview.png" alt="Benjamin T. Rossen Logo" class="logo">
+            <img src="B_s_Logo-removebg-preview.png" alt="Benjamin T. Rossen" class="logo">
         </a>
         <div class="menu-toggle" onclick="toggleMenu()">
             <span></span>
@@ -597,22 +539,20 @@
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
-        <div class="hero-content">
-            <img src="Benjamin T. Rossen Photo.JPG" alt="Benjamin T. Rossen" class="hero-image">
-            <h1>Benjamin T. Rossen</h1>
-            <p class="hero-subtitle">Pianist / Composer / Conductor / Artistic Leader</p>
-        </div>
-        <div class="scroll-indicator">
-            <span></span>
-        </div>
+        <img src="Benjamin T. Rossen Photo.JPG" alt="Benjamin T. Rossen" class="hero-image">
+        <h1>Benjamin T. Rossen</h1>
+        <p class="hero-subtitle">Pianist / Composer / Conductor / Artistic Leader</p>
+        <div class="scroll-line"></div>
     </section>
 
     <!-- About Section -->
     <section class="about" id="about">
-        <h2 class="section-title">About</h2>
+        <div class="section-header">
+            <h2 class="section-title">About</h2>
+        </div>
 
         <div class="about-content">
-            <div class="about-text">
+            <div class="about-text fade-in">
                 <p>Native New Yorker <strong>Benjamin T. Rossen</strong> is a pianist, composer, conductor, and fervent leader in live performing arts. He is on the teaching staff at Harvard University's Music Department and the former Executive Director of Lowell House Opera (LHO), the oldest performing opera company in New England. Benjamin oversaw LHO's transformation through its largest multi-year fundraising campaign and four theatrical productions, including the 2024 world premiere of his original work <em>The Unknowable: An Operatic Ballet in Two Acts</em>. He was the music director and conductor of LHO's 2025 production of <em>Postcard from Morocco</em> by Dominick Argento.</p>
 
                 <p>Benjamin earned a Master of Music in Piano Performance from the New England Conservatory and a Bachelor of Arts in Economics and Music from Harvard University, graduating through the Harvard/NEC Dual Degree Program. He graduated from Harvard in three years.</p>
@@ -628,14 +568,16 @@
 
     <!-- Performances Section -->
     <section class="performances" id="performances">
-        <h2 class="section-title">Performances</h2>
-        <p class="section-subtitle">Watch Benjamin's artistry come to life</p>
+        <div class="section-header">
+            <h2 class="section-title">Performances</h2>
+            <p class="section-subtitle">Watch</p>
+        </div>
 
         <!-- Filter Controls -->
         <div class="filter-controls">
             <button class="filter-btn active" data-filter="all">All</button>
             <button class="filter-btn" data-filter="solo">Solo</button>
-            <button class="filter-btn" data-filter="chamber">Chamber Music</button>
+            <button class="filter-btn" data-filter="chamber">Chamber</button>
             <button class="filter-btn" data-filter="film">Film Score</button>
             <button class="filter-btn" data-filter="composition">Composition</button>
         </div>
@@ -643,7 +585,7 @@
         <!-- Video Grid -->
         <div class="video-grid">
             <!-- Solo Performances -->
-            <div class="video-card" data-category="solo">
+            <div class="video-card fade-in" data-category="solo">
                 <div class="video-wrapper">
                     <iframe
                         src="https://www.youtube.com/embed/VIDEO_ID_1"
@@ -660,7 +602,7 @@
                 </div>
             </div>
 
-            <div class="video-card" data-category="solo">
+            <div class="video-card fade-in" data-category="solo">
                 <div class="video-wrapper">
                     <iframe
                         src="https://www.youtube.com/embed/VIDEO_ID_2"
@@ -677,7 +619,7 @@
                 </div>
             </div>
 
-            <div class="video-card" data-category="solo">
+            <div class="video-card fade-in" data-category="solo">
                 <div class="video-wrapper">
                     <iframe
                         src="https://www.youtube.com/embed/VIDEO_ID_3"
@@ -695,7 +637,7 @@
             </div>
 
             <!-- Chamber Music -->
-            <div class="video-card" data-category="chamber">
+            <div class="video-card fade-in" data-category="chamber">
                 <div class="video-wrapper">
                     <iframe
                         src="https://www.youtube.com/embed/VIDEO_ID_4"
@@ -708,11 +650,11 @@
                 <div class="video-info">
                     <h4>Brahms Piano Trio</h4>
                     <p>Chamber Music Society of Lincoln Center</p>
-                    <span class="video-category">Chamber Music</span>
+                    <span class="video-category">Chamber</span>
                 </div>
             </div>
 
-            <div class="video-card" data-category="chamber">
+            <div class="video-card fade-in" data-category="chamber">
                 <div class="video-wrapper">
                     <iframe
                         src="https://www.youtube.com/embed/VIDEO_ID_5"
@@ -725,12 +667,12 @@
                 <div class="video-info">
                     <h4>Mendelssohn Piano Quartet</h4>
                     <p>Music@Menlo</p>
-                    <span class="video-category">Chamber Music</span>
+                    <span class="video-category">Chamber</span>
                 </div>
             </div>
 
             <!-- Film Score -->
-            <div class="video-card" data-category="film">
+            <div class="video-card fade-in" data-category="film">
                 <div class="video-wrapper">
                     <iframe
                         src="https://www.youtube.com/embed/VIDEO_ID_6"
@@ -748,7 +690,7 @@
             </div>
 
             <!-- Composition -->
-            <div class="video-card" data-category="composition">
+            <div class="video-card fade-in" data-category="composition">
                 <div class="video-wrapper">
                     <iframe
                         src="https://www.youtube.com/embed/VIDEO_ID_7"
@@ -765,7 +707,7 @@
                 </div>
             </div>
 
-            <div class="video-card" data-category="composition">
+            <div class="video-card fade-in" data-category="composition">
                 <div class="video-wrapper">
                     <iframe
                         src="https://www.youtube.com/embed/VIDEO_ID_8"
@@ -789,15 +731,17 @@
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
-                View All Performances on YouTube
+                View All on YouTube
             </a>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section class="contact" id="contact">
-        <h2 class="section-title">Connect</h2>
-        <p class="section-subtitle" style="color: rgba(255,255,255,0.7);">For bookings, collaborations, and inquiries</p>
+        <div class="section-header">
+            <h2 class="section-title">Connect</h2>
+            <p class="section-subtitle">Bookings and inquiries</p>
+        </div>
 
         <div class="contact-links">
             <a href="https://www.youtube.com/@benjamin.t.rossen" target="_blank" class="contact-link">
@@ -809,9 +753,8 @@
             <a href="https://www.steinway.com/artists/benjamin-t-rossen" target="_blank" class="contact-link">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.523 0-10-4.477-10-10S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-                    <path d="M12 6c-3.313 0-6 2.687-6 6s2.687 6 6 6 6-2.687 6-6-2.687-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
                 </svg>
-                Steinway Artist Profile
+                Steinway
             </a>
             <a href="mailto:contact@benjaminrossen.com" class="contact-link">
                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -824,7 +767,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>2025 Benjamin T. Rossen. All rights reserved.</p>
+        <p>2025 Benjamin T. Rossen</p>
     </footer>
 
     <script>
@@ -858,13 +801,10 @@
         window.addEventListener('load', () => {
             audio.volume = 0.3;
             audio.play().then(() => {
-                // Audio started successfully
                 updateMuteIcon();
             }).catch(e => {
-                // Auto-play was blocked, show muted state
                 isMuted = true;
                 updateMuteIcon();
-                console.log('Auto-play blocked by browser. Click the sound button to enable audio.');
             });
         });
 
@@ -874,9 +814,7 @@
                 audio.play().then(() => {
                     isMuted = false;
                     updateMuteIcon();
-                }).catch(e => {
-                    console.log('Audio play failed:', e);
-                });
+                }).catch(e => {});
             }
             document.removeEventListener('click', initAudio);
         }, { once: true });
@@ -886,9 +824,7 @@
                 audio.play().then(() => {
                     isMuted = false;
                     updateMuteIcon();
-                }).catch(e => {
-                    console.log('Audio play failed:', e);
-                });
+                }).catch(e => {});
             } else {
                 if (isMuted) {
                     audio.muted = false;
@@ -917,17 +853,14 @@
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Update active button
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                // Filter videos
                 const filter = btn.dataset.filter;
 
                 videoCards.forEach(card => {
                     if (filter === 'all' || card.dataset.category === filter) {
                         card.classList.remove('hidden');
-                        card.style.animation = 'fadeInUp 0.5s ease forwards';
                     } else {
                         card.classList.add('hidden');
                     }
@@ -958,17 +891,12 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        // Observe elements for animation
-        document.querySelectorAll('.video-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        document.querySelectorAll('.fade-in').forEach(el => {
             observer.observe(el);
         });
     </script>
