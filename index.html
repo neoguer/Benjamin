@@ -66,9 +66,23 @@
 
         .nav-center {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             font-weight: 300;
             letter-spacing: 0.02em;
+        }
+
+        .nav-center .letter {
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .nav-center .letter:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transform: translateY(-2px);
         }
 
         .nav-links {
@@ -692,7 +706,9 @@
             }
 
             .nav-center {
-                font-size: 1.2rem;
+                font-size: 1.6rem;
+                flex: 1;
+                text-align: center;
             }
 
             .nav-left {
@@ -1263,6 +1279,20 @@
     </footer>
 
     <script>
+        // Wrap each letter in nav-center with a span for individual hover effects
+        document.addEventListener('DOMContentLoaded', () => {
+            const navCenter = document.querySelector('.nav-center');
+            if (navCenter) {
+                const text = navCenter.textContent;
+                navCenter.innerHTML = text.split('').map(char => {
+                    if (char === ' ') {
+                        return '<span class="letter" style="display: inline; cursor: default;">&nbsp;</span>';
+                    }
+                    return `<span class="letter">${char}</span>`;
+                }).join('');
+            }
+        });
+
         // Navigation scroll effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
