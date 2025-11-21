@@ -78,14 +78,12 @@
         }
 
         .nav-center .letter:hover {
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            -webkit-background-clip: text;
             transform: translateY(-2px);
         }
 
-        .nav-center .letter[data-rainbow-color]:hover {
-            background: var(--rainbow-color);
+        .nav-center .letter[data-rainbow-color]:hover,
+        .nav-center .letter[data-rainbow-color].touch-active {
+            color: var(--rainbow-color);
         }
 
         .nav-links {
@@ -1301,6 +1299,51 @@
 
                     return `<span class="letter" data-rainbow-color style="--rainbow-color: ${color}">${char}</span>`;
                 }).join('');
+
+                // Mobile touch drag interaction
+                let isTouching = false;
+
+                navCenter.addEventListener('touchstart', (e) => {
+                    isTouching = true;
+                    handleTouchMove(e);
+                }, { passive: true });
+
+                navCenter.addEventListener('touchmove', (e) => {
+                    if (isTouching) {
+                        handleTouchMove(e);
+                    }
+                }, { passive: true });
+
+                navCenter.addEventListener('touchend', () => {
+                    isTouching = false;
+                    // Remove all touch-active classes when touch ends
+                    document.querySelectorAll('.nav-center .letter.touch-active').forEach(letter => {
+                        letter.classList.remove('touch-active');
+                    });
+                });
+
+                navCenter.addEventListener('touchcancel', () => {
+                    isTouching = false;
+                    // Remove all touch-active classes when touch is cancelled
+                    document.querySelectorAll('.nav-center .letter.touch-active').forEach(letter => {
+                        letter.classList.remove('touch-active');
+                    });
+                });
+
+                function handleTouchMove(e) {
+                    const touch = e.touches[0];
+                    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+
+                    // Remove touch-active from all letters first
+                    document.querySelectorAll('.nav-center .letter.touch-active').forEach(letter => {
+                        letter.classList.remove('touch-active');
+                    });
+
+                    // Add touch-active to the currently touched letter
+                    if (element && element.classList.contains('letter') && element.hasAttribute('data-rainbow-color')) {
+                        element.classList.add('touch-active');
+                    }
+                }
             }
         });
 
