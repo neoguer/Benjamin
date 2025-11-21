@@ -58,14 +58,17 @@
             opacity: 0.9;
         }
 
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
         .nav-center {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            font-weight: 400;
-            letter-spacing: 0.05em;
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 0.02em;
         }
 
         .nav-links {
@@ -307,9 +310,11 @@
         }
 
         .about-text {
-            font-size: 1.1rem;
-            line-height: 2;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            line-height: 1.9;
             color: var(--charcoal-light);
+            font-weight: 300;
         }
 
         .about-text p {
@@ -317,7 +322,7 @@
         }
 
         .about-text strong {
-            font-weight: 500;
+            font-weight: 400;
             color: var(--charcoal);
         }
 
@@ -414,13 +419,15 @@
 
         .video-info h4 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            font-weight: 400;
+            font-size: 1.4rem;
+            font-weight: 300;
             margin-bottom: 0.5rem;
         }
 
         .video-info p {
-            font-size: 0.8rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            font-weight: 300;
             opacity: 0.6;
             margin-bottom: 0.75rem;
         }
@@ -633,7 +640,11 @@
             }
 
             .nav-center {
-                font-size: 1rem;
+                font-size: 1.2rem;
+            }
+
+            .nav-left {
+                gap: 0.5rem;
             }
 
             .nav-links {
@@ -718,10 +729,12 @@
 <body>
     <!-- Navigation -->
     <nav id="navbar">
-        <a href="#hero">
-            <img src="B_s_Logo-removebg-preview.png" alt="Logo" class="logo">
-        </a>
-        <div class="nav-center">Benjamin T. Rossen</div>
+        <div class="nav-left">
+            <a href="#hero">
+                <img src="B_s_Logo-removebg-preview.png" alt="Logo" class="logo">
+            </a>
+            <div class="nav-center">Benjamin T. Rossen</div>
+        </div>
         <div class="menu-toggle" onclick="toggleMenu()">
             <span></span>
             <span></span>
