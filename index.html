@@ -54,7 +54,7 @@
         }
 
         .logo {
-            height: 35px;
+            height: 50px;
             opacity: 0.9;
         }
 
@@ -1280,6 +1280,32 @@
     </footer>
 
     <script>
+        // Web Audio API for piano notes
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playPianoNote(midiNote) {
+            // Convert MIDI note to frequency
+            const frequency = 440 * Math.pow(2, (midiNote - 69) / 12);
+
+            // Create oscillator for the note
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            // Piano-like sound using a sine wave with quick decay
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+
+            // Envelope for piano-like sound
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.8);
+        }
+
         // Wrap each letter in nav-center with a span for individual hover effects
         document.addEventListener('DOMContentLoaded', () => {
             const navCenter = document.querySelector('.nav-center');
@@ -1287,6 +1313,10 @@
                 const text = navCenter.textContent;
                 const chars = text.split('');
                 const totalChars = chars.length;
+
+                // Starting MIDI note B3 (59) and ascending chromatically
+                let noteIndex = 0;
+                const startingMidiNote = 59; // B3
 
                 navCenter.innerHTML = chars.map((char, index) => {
                     if (char === ' ' || char === '.') {
@@ -1297,8 +1327,20 @@
                     const hue = (index / (totalChars - 1)) * 270;
                     const color = `hsl(${hue}, 70%, 55%)`;
 
-                    return `<span class="letter" data-rainbow-color style="--rainbow-color: ${color}">${char}</span>`;
+                    // Assign MIDI note chromatically
+                    const midiNote = startingMidiNote + noteIndex;
+                    noteIndex++;
+
+                    return `<span class="letter" data-rainbow-color data-midi-note="${midiNote}" style="--rainbow-color: ${color}">${char}</span>`;
                 }).join('');
+
+                // Add hover listeners for piano notes
+                document.querySelectorAll('.nav-center .letter[data-midi-note]').forEach(letter => {
+                    letter.addEventListener('mouseenter', () => {
+                        const midiNote = parseInt(letter.getAttribute('data-midi-note'));
+                        playPianoNote(midiNote);
+                    });
+                });
 
                 // Mobile touch drag interaction
                 let isTouching = false;
@@ -1342,6 +1384,12 @@
                     // Add touch-active to the currently touched letter
                     if (element && element.classList.contains('letter') && element.hasAttribute('data-rainbow-color')) {
                         element.classList.add('touch-active');
+
+                        // Play piano note on touch
+                        if (element.hasAttribute('data-midi-note')) {
+                            const midiNote = parseInt(element.getAttribute('data-midi-note'));
+                            playPianoNote(midiNote);
+                        }
                     }
                 }
             }
