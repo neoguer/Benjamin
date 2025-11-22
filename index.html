@@ -1287,23 +1287,62 @@
             // Convert MIDI note to frequency
             const frequency = 440 * Math.pow(2, (midiNote - 69) / 12);
 
-            // Create oscillator for the note
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
+            // Create master gain node (volume reduced by 25%: 0.3 * 0.75 = 0.225)
+            const masterGain = audioContext.createGain();
+            masterGain.connect(audioContext.destination);
 
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
+            // Piano sound with harmonics - fundamental frequency
+            const fundamental = audioContext.createOscillator();
+            const fundamentalGain = audioContext.createGain();
+            fundamental.type = 'triangle';
+            fundamental.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            fundamental.connect(fundamentalGain);
+            fundamentalGain.connect(masterGain);
 
-            // Piano-like sound using a sine wave with quick decay
-            oscillator.type = 'sine';
-            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            // Second harmonic (octave above)
+            const harmonic2 = audioContext.createOscillator();
+            const harmonic2Gain = audioContext.createGain();
+            harmonic2.type = 'sine';
+            harmonic2.frequency.setValueAtTime(frequency * 2, audioContext.currentTime);
+            harmonic2.connect(harmonic2Gain);
+            harmonic2Gain.connect(masterGain);
 
-            // Envelope for piano-like sound
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8);
+            // Third harmonic
+            const harmonic3 = audioContext.createOscillator();
+            const harmonic3Gain = audioContext.createGain();
+            harmonic3.type = 'sine';
+            harmonic3.frequency.setValueAtTime(frequency * 3, audioContext.currentTime);
+            harmonic3.connect(harmonic3Gain);
+            harmonic3Gain.connect(masterGain);
 
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.8);
+            // Piano envelope - sharp attack, medium decay
+            const now = audioContext.currentTime;
+            const attackTime = 0.002;
+            const decayTime = 0.8;
+
+            // Fundamental envelope
+            fundamentalGain.gain.setValueAtTime(0, now);
+            fundamentalGain.gain.linearRampToValueAtTime(0.225, now + attackTime);
+            fundamentalGain.gain.exponentialRampToValueAtTime(0.001, now + decayTime);
+
+            // Harmonic 2 envelope (softer)
+            harmonic2Gain.gain.setValueAtTime(0, now);
+            harmonic2Gain.gain.linearRampToValueAtTime(0.1, now + attackTime);
+            harmonic2Gain.gain.exponentialRampToValueAtTime(0.001, now + decayTime);
+
+            // Harmonic 3 envelope (even softer)
+            harmonic3Gain.gain.setValueAtTime(0, now);
+            harmonic3Gain.gain.linearRampToValueAtTime(0.05, now + attackTime);
+            harmonic3Gain.gain.exponentialRampToValueAtTime(0.001, now + decayTime);
+
+            // Start and stop all oscillators
+            fundamental.start(now);
+            harmonic2.start(now);
+            harmonic3.start(now);
+
+            fundamental.stop(now + decayTime);
+            harmonic2.stop(now + decayTime);
+            harmonic3.stop(now + decayTime);
         }
 
         // Wrap each letter in nav-center with a span for individual hover effects
