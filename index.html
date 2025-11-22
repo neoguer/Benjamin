@@ -1281,50 +1281,71 @@
 
     <script>
         // Web Audio API for piano notes - completely independent from background audio
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let audioContext = null;
         let audioContextResumed = false;
+
+        // Initialize audio context lazily
+        function getAudioContext() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioContext;
+        }
 
         // Resume audio context on first user interaction
         function resumeAudioContext() {
-            if (!audioContextResumed && audioContext.state === 'suspended') {
-                audioContext.resume().then(() => {
+            const ctx = getAudioContext();
+            if (ctx.state === 'suspended') {
+                ctx.resume().then(() => {
                     audioContextResumed = true;
+                    console.log('Piano audio context resumed');
+                }).catch(err => {
+                    console.log('Failed to resume audio context:', err);
                 });
             }
         }
 
-        // Add listeners to resume audio context
-        document.addEventListener('click', resumeAudioContext, { once: true });
-        document.addEventListener('touchstart', resumeAudioContext, { once: true });
+        // Add listeners to resume audio context - multiple events for better mobile support
+        document.addEventListener('click', resumeAudioContext);
+        document.addEventListener('touchstart', resumeAudioContext);
+        document.addEventListener('touchend', resumeAudioContext);
 
-        function playPianoNote(midiNote) {
-            // Ensure audio context is running
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
+        async function playPianoNote(midiNote) {
+            const ctx = getAudioContext();
+
+            // CRITICAL: Always try to resume context before playing, especially on mobile
+            if (ctx.state !== 'running') {
+                try {
+                    await ctx.resume();
+                    console.log('Audio context resumed for note playback');
+                } catch (err) {
+                    console.error('Failed to resume audio context:', err);
+                    return; // Don't play if we can't resume
+                }
             }
 
             // Convert MIDI note to frequency
             const frequency = 440 * Math.pow(2, (midiNote - 69) / 12);
-            const now = audioContext.currentTime;
+            const now = ctx.currentTime;
 
             // Create master gain node (volume reduced by 25%)
-            const masterGain = audioContext.createGain();
-            masterGain.connect(audioContext.destination);
+            const masterGain = ctx.createGain();
+            masterGain.connect(ctx.destination);
             masterGain.gain.setValueAtTime(0.18, now); // Reduced from 0.24
 
             // Attack noise for hammer strike
-            const noiseBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.05, audioContext.sampleRate);
+            const noiseBuffer = ctx.createBuffer(1, ctx.sampleRate * 0.05, ctx.sampleRate);
             const noiseData = noiseBuffer.getChannelData(0);
             for (let i = 0; i < noiseData.length; i++) {
                 noiseData[i] = (Math.random() * 2 - 1) * 0.15;
             }
-            const noiseSource = audioContext.createBufferSource();
+            const noiseSource = ctx.createBufferSource();
             noiseSource.buffer = noiseBuffer;
-            const noiseFilter = audioContext.createBiquadFilter();
+            const noiseFilter = ctx.createBiquadFilter();
             noiseFilter.type = 'bandpass';
             noiseFilter.frequency.value = frequency * 4;
             noiseFilter.Q.value = 5;
-            const noiseGain = audioContext.createGain();
+            const noiseGain = ctx.createGain();
             noiseGain.gain.setValueAtTime(0.08, now);
             noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
             noiseSource.connect(noiseFilter);
@@ -1351,8 +1372,8 @@
             const releaseTime = 1.2;
 
             harmonics.forEach((harmonic, index) => {
-                const osc = audioContext.createOscillator();
-                const oscGain = audioContext.createGain();
+                const osc = ctx.createOscillator();
+                const oscGain = ctx.createGain();
 
                 osc.type = harmonic.type;
                 osc.frequency.setValueAtTime(frequency * harmonic.ratio, now);
