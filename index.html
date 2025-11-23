@@ -1085,11 +1085,19 @@
 
             .filter-controls {
                 gap: 0.3rem;
+                justify-content: center;
             }
 
             .filter-btn {
                 padding: 0.5rem 0.8rem;
                 font-size: 0.6rem;
+                flex: 0 0 calc(33.333% - 0.2rem);
+            }
+
+            /* Composition and Film Score on second line */
+            .filter-btn[data-filter="composition"],
+            .filter-btn[data-filter="film"] {
+                flex: 0 0 calc(50% - 0.15rem);
             }
 
             .connect-container {
