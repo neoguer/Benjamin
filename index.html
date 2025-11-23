@@ -694,10 +694,12 @@
         }
 
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 2rem;
             margin-top: 3rem;
+            justify-content: center;
+            align-items: flex-start;
         }
 
         .gallery-item {
@@ -707,6 +709,8 @@
             box-shadow: 0 4px 12px rgba(21, 21, 22, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
+            flex: 0 0 auto;
+            max-width: 100%;
         }
 
         .gallery-item:hover {
@@ -715,14 +719,22 @@
         }
 
         .gallery-item img {
-            width: 100%;
-            height: auto;
             display: block;
+            height: auto;
+            max-width: 450px;
+            width: auto;
+            max-height: 600px;
             transition: transform 0.3s ease;
         }
 
         .gallery-item:hover img {
             transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-item img {
+                max-width: 100%;
+            }
         }
 
         .brainteasers-container {
