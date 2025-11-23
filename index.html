@@ -911,6 +911,34 @@
         }
 
         /* Responsive */
+        /* Tablet Mode (769px to 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .about {
+                background-size: auto 135%;
+                background-attachment: scroll;
+                background-position: center 35%;
+            }
+        }
+
+        /* Tablet Portrait Mode - Fix heading sizes */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+            .nav-center {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 2.8rem;
+            }
+
+            .parallax-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .parallax-content p {
+                font-size: 0.95rem;
+            }
+        }
+
         @media (max-width: 968px) {
             .about-container {
                 grid-template-columns: 1fr;
@@ -1985,6 +2013,11 @@
             return window.innerWidth <= 768;
         }
 
+        // Function to check if in tablet mode
+        function isTabletMode() {
+            return window.innerWidth > 768 && window.innerWidth <= 1024;
+        }
+
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
 
@@ -1999,8 +2032,8 @@
             if (scrolled > aboutOffset - window.innerHeight && scrolled < aboutOffset + aboutHeight) {
                 const relativeScroll = scrolled - aboutOffset + window.innerHeight;
 
-                // Use minimal parallax speed in mobile mode (~0%), normal speed in desktop
-                const parallaxSpeed = isMobileMode() ? -0.01 : -0.3;
+                // Use minimal parallax speed in mobile and tablet modes (~0%), normal speed in desktop
+                const parallaxSpeed = (isMobileMode() || isTabletMode()) ? -0.01 : -0.3;
                 const parallaxAmount = relativeScroll * parallaxSpeed;
 
                 aboutSection.style.backgroundPosition = `center calc(35% + ${parallaxAmount}px)`;
